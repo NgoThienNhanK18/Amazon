@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { toast } from '@/components/ui/use-toast';
 import { useRouter } from '@/routes/hooks';
 import { Link } from 'react-router-dom';
 
@@ -61,7 +62,18 @@ export function CategoryGrid() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8">
-      <h2 className="mb-6 text-2xl font-bold">Shop by Category</h2>
+      <h2
+        className="mb-6 text-2xl font-bold"
+        onClick={() => {
+          toast({
+            title: 'Thêm vào giỏ hàng',
+            description: 'You clicked on Shop by Category',
+            variant: 'success'
+          });
+        }}
+      >
+        Shop by Category
+      </h2>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {categories.map((category) => (
           <Card

@@ -20,6 +20,10 @@ import {
 import { useState, useEffect } from 'react';
 import { LanguageSelector } from '@/components/ui/language-selector';
 import { set } from 'date-fns';
+import { RootState } from '@/redux/store';
+import { useSelector } from 'react-redux';
+import __helpers from '@/helpers';
+import { useRouter } from '@/routes/hooks';
 
 const suggestionNames = [
   'John Smith',
@@ -40,13 +44,16 @@ export function Header() {
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [listProductLocalStorage, setListProductLocalStorage] = useState([]);
+  const { listProduct } = useSelector((state: RootState) => state.order);
+  const infoUser = __helpers.localStorage_get('infoUser');
+  const router = useRouter();
 
   useEffect(() => {
     const storedProducts = window.localStorage.getItem('listProductAdded');
     if (storedProducts) {
       setListProductLocalStorage(JSON.parse(storedProducts));
     }
-  }, []);
+  }, [listProduct]);
 
   useEffect(() => {
     if (searchTerm.trim() === '') {
@@ -184,25 +191,32 @@ export function Header() {
             </div>
 
             {/* Account */}
-            <div className="hidden text-sm md:block">
-              <div className="text-xs">Hello, sign in</div>
-              <div className="font-bold">Account & Lists</div>
-            </div>
+            {infoUser ? (
+              <div className="flex items-center gap-4">
+                <div className="hidden text-sm md:block">
+                  Xin chào
+                  {JSON.parse(infoUser).name || 'user'}
+                </div>
 
-            {/* Orders */}
-            <div className="hidden text-sm md:block">
-              <div className="text-xs">Returns</div>
-              <div className="font-bold">& Orders</div>
-            </div>
-
-            {/* Cart */}
-            <div className="flex items-center space-x-1">
-              <ShoppingCart className="h-6 w-6" />
-              <span className="font-bold">Cart</span>
-              <span className="rounded-full bg-orange-400 px-2 py-1 text-xs text-black">
-                {listProductLocalStorage.length || 0}
-              </span>
-            </div>
+                <div className="flex items-center space-x-1">
+                  <ShoppingCart className="h-6 w-6" />
+                  <span className="font-bold">Cart</span>
+                  <span className="rounded-full bg-orange-400 px-2 py-1 text-2xl  text-black">
+                    {listProductLocalStorage.length || 0}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <Button
+                  onClick={() => {
+                    router.push('/login');
+                  }}
+                >
+                  Đăng nhập
+                </Button>
+              </div>
+            )}
 
             {/* Mobile menu */}
             <Button variant="ghost" size="icon" className="md:hidden">

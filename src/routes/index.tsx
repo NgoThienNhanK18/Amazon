@@ -12,6 +12,8 @@ const SignInPage = lazy(() => import('@/pages/auth/signin'));
 const HomePage = lazy(() => import('@/pages/HomePage/index'));
 const ProductsPage = lazy(() => import('@/pages/Products/index'));
 const CartPage = lazy(() => import('@/pages/Cart/index'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
+
 // ----------------------------------------------------------------------
 
 export default function AppRouter() {
@@ -45,10 +47,8 @@ export default function AppRouter() {
   const publicRoutes = [
     {
       path: '/login',
-      element: <SignInPage />,
-      index: true
+      element: <LoginPage />
     },
-
     {
       path: '/404',
       element: <NotFound />

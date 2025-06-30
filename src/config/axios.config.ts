@@ -3,8 +3,8 @@ import helpers from '../helpers';
 
 const baseURL =
   process.env.NODE_ENV === 'production'
-    ? 'https://lms.autopass.blog/'
-    : 'https://lms.autopass.blog/';
+    ? 'https://api.fitverse.autopass.blog'
+    : 'https://api.fitverse.autopass.blog';
 
 const onRequestSuccess = (config: any) => {
   config.headers['Authorization'] = `Bearer ${helpers.cookie_get('AT')}`;

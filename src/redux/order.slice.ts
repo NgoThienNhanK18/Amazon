@@ -2,10 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface OrderState {
   updated: boolean;
+  listProduct: any[];
+  totalItem: number;
 }
 
 const initialState: OrderState = {
-  updated: false
+  updated: false,
+  listProduct: [],
+  totalItem: 0
 };
 
 const orderSlice = createSlice({
@@ -14,10 +18,13 @@ const orderSlice = createSlice({
   reducers: {
     setOrder(state, action: PayloadAction<boolean>) {
       state.updated = action.payload;
+    },
+    setListProduct(state, action: PayloadAction<any[]>) {
+      state.listProduct = action.payload;
     }
   }
 });
 
-export const { setOrder } = orderSlice.actions;
+export const { setOrder, setListProduct } = orderSlice.actions;
 const orderReducer = orderSlice.reducer;
 export default orderReducer;

@@ -2,17 +2,71 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { ShoppingCart, Heart, Star } from 'lucide-react';
 import __helpers from '@/helpers';
+import { useDispatch } from 'react-redux';
+import { setListProduct } from '@/redux/order.slice';
+import { toast } from '@/components/ui/use-toast';
 
 export default function ProductList({ data }) {
   const [listProductAdded, setListProductAdded] = useState<typeof data>([]);
   const [wishlist, setWishlist] = useState<typeof data>([]);
+  const dispatch = useDispatch();
   const handleAddToCart = (product) => {
-    const updatedListProductAdded = [...listProductAdded, product];
-    setListProductAdded(updatedListProductAdded);
-    __helpers.localStorage_set(
-      'listProductAdded',
-      JSON.stringify(updatedListProductAdded)
+    toast({
+      title: 'Thêm vào giỏ hàng',
+      description: `${product.name} đã được thêm vào giỏ hàng.`,
+      variant: 'success'
+    });
+
+    // lấy những sản phẩm trong localStorage ra
+    const currentItemInLocalStorageDecode =
+      __helpers.localStorage_get('listProductAdded');
+
+    // parse lại
+    const currentItemInLocalStorage = currentItemInLocalStorageDecode
+      ? JSON.parse(currentItemInLocalStorageDecode)
+      : [];
+
+    const isProductInCart = currentItemInLocalStorage.find(
+      (item) => item.id == product.id
     );
+
+    if (isProductInCart == undefined) {
+      const newListItemInCart = [
+        ...currentItemInLocalStorage,
+        {
+          ...product,
+          quanlity: 1
+        }
+      ];
+
+      __helpers.localStorage_set(
+        'listProductAdded',
+        JSON.stringify(newListItemInCart)
+      );
+
+      console.log('newListItemInCart', newListItemInCart);
+
+      dispatch(setListProduct(newListItemInCart));
+    } else {
+      // lọc qua mảng, tìm  phần tử trùng với id để cập nhập số lượng
+      const newListItemInCart = currentItemInLocalStorage.map((item) => {
+        if (item.id == product.id) {
+          return {
+            ...item,
+            quanlity: item.quanlity + 1
+          };
+        }
+      });
+
+      __helpers.localStorage_set(
+        'listProductAdded',
+        JSON.stringify(newListItemInCart)
+      );
+
+      console.log('newListItemInCart', newListItemInCart);
+
+      dispatch(setListProduct(newListItemInCart));
+    }
   };
 
   const handleAddToWishlist = (product) => {
