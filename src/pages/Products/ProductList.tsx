@@ -5,11 +5,14 @@ import __helpers from '@/helpers';
 import { useDispatch } from 'react-redux';
 import { setListProduct } from '@/redux/order.slice';
 import { toast } from '@/components/ui/use-toast';
+import { useRouter } from '@/routes/hooks';
 
 export default function ProductList({ data }) {
   const [listProductAdded, setListProductAdded] = useState<typeof data>([]);
   const [wishlist, setWishlist] = useState<typeof data>([]);
   const dispatch = useDispatch();
+  const router = useRouter();
+
   const handleAddToCart = (product) => {
     toast({
       title: 'Thêm vào giỏ hàng',
@@ -103,7 +106,8 @@ export default function ProductList({ data }) {
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="h-48 w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  className="h-48 w-full cursor-pointer object-contain transition-transform duration-300 group-hover:scale-105"
+                  onClick={() => router.push(`/product/${product.id}`)}
                 />
               </div>
 

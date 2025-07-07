@@ -20,7 +20,6 @@ const BasePages = ({
       <div className={`${className}`}>
         <div className=" mt-4 items-center justify-between max-md:pt-4 md:flex md:pr-8">
           <div className="flex items-center">
-            <SidebarTrigger />
             <div
               data-orientation="vertical"
               role="none"
