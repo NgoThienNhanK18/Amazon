@@ -1,6 +1,5 @@
 import BasePages from '@/components/shared/base-pages';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 const ListImages = [
   {
@@ -15,7 +14,6 @@ const ListImages = [
 ];
 
 export default function ProductDetailPage() {
-  const { id } = useParams();
   const [imageSelected, setSelectedImage] = useState(ListImages[0].src);
 
   return (

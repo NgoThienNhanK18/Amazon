@@ -1,6 +1,5 @@
 import PageHead from '@/components/shared/page-head.jsx';
 import { Breadcrumbs } from '@/components/shared/breadcrumbs';
-import { SidebarTrigger } from '../ui/sidebar';
 interface IBasePages {
   children?: React.ReactNode;
   className?: string;

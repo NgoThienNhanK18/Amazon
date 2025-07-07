@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import ProductFilter from './ProductFilter';
 import ProductList from './ProductList';
-import { useRouter } from '@/routes/hooks';
 
 const tempDataAPI = [
   {
@@ -67,7 +66,6 @@ const tempDataAPI = [
 export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [listProducts, setListProducts] = useState(tempDataAPI);
-  const router = useRouter();
   useEffect(() => {
     if (selectedCategory == 'all') {
       setListProducts(tempDataAPI);

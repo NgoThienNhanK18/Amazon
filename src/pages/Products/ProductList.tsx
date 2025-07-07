@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import { ShoppingCart, Heart, Star } from 'lucide-react';
+import { ShoppingCart, Heart } from 'lucide-react';
 import __helpers from '@/helpers';
 import { useDispatch } from 'react-redux';
 import { setListProduct } from '@/redux/order.slice';
@@ -8,7 +8,6 @@ import { toast } from '@/components/ui/use-toast';
 import { useRouter } from '@/routes/hooks';
 
 export default function ProductList({ data }) {
-  const [listProductAdded, setListProductAdded] = useState<typeof data>([]);
   const [wishlist, setWishlist] = useState<typeof data>([]);
   const dispatch = useDispatch();
   const router = useRouter();

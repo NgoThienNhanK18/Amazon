@@ -14,7 +14,6 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
 import { useState } from 'react';
-import axios from 'axios';
 import __helpers from '@/helpers';
 import { useHandleLogin } from '@/queries/dangnhap.query';
 import { toast } from '@/components/ui/use-toast';

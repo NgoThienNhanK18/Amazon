@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from '@/components/ui/use-toast';
 import { useRouter } from '@/routes/hooks';
-import { Link } from 'react-router-dom';
 
 const categories = [
   {
@@ -57,8 +56,6 @@ const categories = [
 
 export function CategoryGrid() {
   const router = useRouter();
-
-  const handleClickCategory = () => {};
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8">

@@ -41,14 +41,6 @@ export default function CartPage() {
       return 0;
     }
 
-    const listProductFinal = [];
-
-    listProduct.map((item, index) => {
-      const findProduct = listProductFinal.find(
-        (product) => product.id === item.id
-      );
-    });
-
     return true;
   };
 
@@ -75,7 +67,7 @@ export default function CartPage() {
       <div className="col-span-8 space-y-4 bg-red-50 p-4">
         <h1 className="text-3xl font-bold">Thông tin giỏ hàng</h1>
         {listProductAdded &&
-          listProductAdded.map((item) => {
+          listProductAdded.map((item: any) => {
             return (
               <div className="grid grid-cols-[15%,45%,30%,10%] border p-4">
                 <div>
