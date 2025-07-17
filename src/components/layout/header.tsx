@@ -189,20 +189,25 @@ export function Header() {
               <LanguageSelector />
             </div>
 
+            {/* Cart Icon - luôn hiển thị */}
+            <div
+              className="relative flex cursor-pointer items-center space-x-1"
+              onClick={() => router.push('/cart')}
+              title="Giỏ hàng"
+            >
+              <ShoppingCart className="h-6 w-6" />
+              <span className="font-bold">Cart</span>
+              <span className="rounded-full bg-orange-400 px-2 py-1 text-2xl text-black">
+                {listProductLocalStorage.length || 0}
+              </span>
+            </div>
+
             {/* Account */}
             {infoUser ? (
               <div className="flex items-center gap-4">
                 <div className="hidden text-sm md:block">
                   Xin chào
                   {JSON.parse(infoUser).name || 'user'}
-                </div>
-
-                <div className="flex items-center space-x-1">
-                  <ShoppingCart className="h-6 w-6" />
-                  <span className="font-bold">Cart</span>
-                  <span className="rounded-full bg-orange-400 px-2 py-1 text-2xl  text-black">
-                    {listProductLocalStorage.length || 0}
-                  </span>
                 </div>
               </div>
             ) : (

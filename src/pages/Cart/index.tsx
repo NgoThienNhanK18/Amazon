@@ -25,8 +25,8 @@ export default function CartPage() {
     }
     let total = 0;
 
-    array.map((item) => {
-      total += item.price * item.quanlity;
+    array.filter(Boolean).forEach((item) => {
+      total += (item.price || 0) * (item.quanlity || 1);
     });
 
     setTotalPrice(total);
@@ -42,6 +42,16 @@ export default function CartPage() {
     }
 
     return true;
+  };
+
+  // Hàm xóa sản phẩm khỏi giỏ hàng
+  const handleRemoveProduct = (id) => {
+    const data = __helpers.localStorage_get('listProductAdded');
+    const dataParse = JSON.parse(data || '[]');
+    const newList = dataParse.filter((item) => item && item.id !== id);
+    __helpers.localStorage_set('listProductAdded', JSON.stringify(newList));
+    setListProductAdded(newList);
+    handleCalculateTotalPrice(newList);
   };
 
   const handleCheckout = async () => {
@@ -67,9 +77,12 @@ export default function CartPage() {
       <div className="col-span-8 space-y-4 bg-red-50 p-4">
         <h1 className="text-3xl font-bold">Thông tin giỏ hàng</h1>
         {listProductAdded &&
-          listProductAdded.map((item: any) => {
+          listProductAdded.filter(Boolean).map((item: any) => {
             return (
-              <div className="grid grid-cols-[15%,45%,30%,10%] border p-4">
+              <div
+                className="grid grid-cols-[15%,45%,30%,10%] border p-4"
+                key={item.id}
+              >
                 <div>
                   <img
                     className="w-20 border border-red-500"
@@ -91,7 +104,12 @@ export default function CartPage() {
                   <p>Số lượng: {item.quanlity}</p>
                 </div>
                 <div>
-                  <Button className="bg-blue-500">Xóa</Button>
+                  <Button
+                    className="bg-blue-500"
+                    onClick={() => handleRemoveProduct(item.id)}
+                  >
+                    Xóa
+                  </Button>
                 </div>
               </div>
             );
